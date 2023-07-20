@@ -4,7 +4,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 export default function Tarea(props) {
-  const [isTachada, setIsTachada] = useState(false);
+  const [isTachada, setIsTachada] = useState(props.isTachada);
   const theme = useTheme();
   const color1 = theme.palette.secondary.main;
   const color2 = theme.palette.warning.main;
@@ -21,6 +21,11 @@ export default function Tarea(props) {
 
   function tacharTarea() {
     setIsTachada(!isTachada);
+    props.tacharTarea({
+      id: props.id,
+      input: props.children,
+      isTachada: !isTachada
+    });
   }
 
   function deleteTarea(event) {
@@ -43,14 +48,13 @@ export default function Tarea(props) {
             }
           : tareaStyle
       }
-      onClick={tacharTarea}
     >
-      <Grid item xs={11} alignItems='center'>
+      <Grid item xs={11} onClick={tacharTarea}>
         <Typography mt={1} variant="body2" color={color2}>
           {props.children}
         </Typography>
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={1} textAlign='right'>
         <Button color="secondary" onClick={deleteTarea}>
           <Delete sx={{ color: color2 }} />
         </Button>

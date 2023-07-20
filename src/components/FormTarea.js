@@ -9,9 +9,11 @@ export default function FormTarea(props) {
 
   function addTarea(event){
     event.preventDefault();
-    const newID=uuidv4();
-    props.addTarea({id:newID, input: input });
-    setInput('');
+    if(input !== ''){
+      const newID=uuidv4();
+      props.addTarea({id:newID, input: input, isTachada:false });
+      setInput('');
+    }
   }
 
   function handleChange(event){
